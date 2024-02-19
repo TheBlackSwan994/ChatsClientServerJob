@@ -46,15 +46,15 @@ onClicked: pageStack.pop()
 
 //Добавление с базы данны ListElement
 
-
+property alias chat: chatHistory
   ListView {
       id: openedChatView
       clip: true
       spacing: 8
       anchors.margins: 16
-      height: window.height - pageOfChatHeader.height -backgrOfText.height-60
+      height: window.height - pageOfChatHeader.height -backgrOfText.height-70
       width: window.width
-      y:pageOfChatHeader.height
+      y:pageOfChatHeader.height+10
       highlightFollowsCurrentItem: true
         model:chatHistory
 
@@ -64,7 +64,7 @@ onClicked: pageStack.pop()
 
             height: shouldShowTime? backgroundMSG.height +25: backgroundMSG.height
             width: backgroundMSG.width
-            x: sender? 0: openedChatView.width - width
+            x: sender? 30: openedChatView.width - width-30
 
             property bool shouldShowTime: chatHistory.count -1 == index? true :chatHistory.get(index+1).sender !== sender
 
@@ -76,7 +76,7 @@ onClicked: pageStack.pop()
                 radius: 32
 
 
-                color: "#ffffff"
+                color: sender? color="#ffffff" : color ="#0f2049"
 
 
                 Text {
@@ -85,11 +85,23 @@ onClicked: pageStack.pop()
                     anchors.centerIn: parent
                     wrapMode: Label.Wrap
                     font.pointSize: 26
+                    color: sender? color="#000000":color="#ffffff"
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: sender? Qt.AlignLeft: Qt.AlignRight
 
                 }
 
+                Text {
+                    anchors.top: backgroundMSG.bottom; anchors.topMargin: 10
+                    anchors.right: sender? undefined: parent.right
+                    horizontalAlignment: sender? Qt.AlignLeft: Qt.AlignRight
+                    text: time
+                    width: backgroundMSG.width
+                    height: 20
+
+                    color: "#000000"
+                    opacity: 0.3
+                }
 
             }
         }
@@ -100,8 +112,8 @@ onClicked: pageStack.pop()
 
   ListModel{
       id:chatHistory
-     ListElement{sender: false; message: "dsfgsdfgsdfgre2";}
-     ListElement{sender: true; message: "dsafeawqgew";}
+     ListElement{sender: false; message: "dsfgsdfgsdfgre2"; time:"11:15"}
+     ListElement{sender: true; message: "dsafeawqgew"; time: "11:20"}
 
 
   }
@@ -150,16 +162,17 @@ Rectangle{
     width: height
     height: parent.height*0.8
     radius: width/2
-    color: "#4682B4"
+    color: "#0f2049"
 MouseArea{
     id: sendButt
     anchors.centerIn:parent
     width: parent.width
     height: parent.height
-
+    onClicked: sendMSG();
 
     Text {
         text: pageStack.depth?"\u2332":"\u2332"
+        color: "#ffffff"
         anchors.right: parent.right
         anchors.rightMargin: 14
         font.pointSize: 32
@@ -168,12 +181,30 @@ MouseArea{
     }
 }
 
+
+
 }
 
 }
 
 
+function sendMSG(){
+    if(youreTextInput.text == "")
+    return;
 
+   var isSender = Math.random() > 0.5;
+    console.log("Sending mesage");
+   var currentTime = new Date();
+   var  hours = currentTime.getHours() < 10 ? "0" + currentTime.getHours() : currentTime.getHours();
+   var  minutes = currentTime.getMinutes() < 10 ? "0" + currentTime.getMinutes() : currentTime.getMinutes();
+
+    chat.append({
+        "sender": isSender,
+        "message": youreTextInput.text,
+        "time": hours + ":" + minutes
+                           });
+
+}
 
 
 }
