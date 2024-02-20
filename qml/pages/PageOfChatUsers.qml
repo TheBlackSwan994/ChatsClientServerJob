@@ -4,7 +4,7 @@ import Sailfish.Silica 1.0
 
 Page{
     id:chatPg
-    backgroundColor: "#DCDCDC"
+    backgroundColor: "#ffffff"
     allowedOrientations: Orientation.All
 
 PageHeader{
@@ -16,7 +16,7 @@ width: parent.width
 Rectangle{
 
     anchors.fill:pageOfChatHeader
-    color:  "#DCDCDC"
+    color:  "#ffffff"
     Rectangle{
      width: parent.width
      height: 2
@@ -50,9 +50,9 @@ property alias chat: chatHistory
   ListView {
       id: openedChatView
       clip: true
-      spacing: 50
+      spacing: 55
       anchors.margins: 16
-      height: window.height - pageOfChatHeader.height -backgrOfText.height-70
+      height: window.height - pageOfChatHeader.height -backgrOfText.height-90
       width: window.width
       y:pageOfChatHeader.height+10
       highlightFollowsCurrentItem: true
@@ -75,7 +75,7 @@ property alias chat: chatHistory
                 width: Math.min(messageText.implicitWidth + 24, (openedChatView.width * 0.8))
                 radius: 32
 
-                color: sender? color="#ffffff" : color ="#0f2049"
+                color: sender? color="#f4f3f7" : color ="#0f2049"
 
 
                 Text {
@@ -85,7 +85,7 @@ property alias chat: chatHistory
                     anchors.margins: 12
                     wrapMode: Text.Wrap
                     font.pointSize: 26
-                    color: sender? color="#000000":color="#ffffff"
+                    color: sender? color="#000000":color="#DCDCDC"
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: sender? Qt.AlignLeft: Qt.AlignRight
                 }

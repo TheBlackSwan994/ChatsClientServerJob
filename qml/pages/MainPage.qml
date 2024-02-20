@@ -5,7 +5,7 @@ import Sailfish.Silica 1.0
 Page{
     id: chatsPgId
     objectName: "ChatsPage_mainPg.qml"
-    backgroundColor: "#DCDCDC"
+    backgroundColor: "#ffffff"
     allowedOrientations: Orientation.All
 
 
@@ -32,7 +32,7 @@ Page{
     width: parent.width
     Rectangle{
      anchors.fill: chatsHeader
-     color: "#DCDCDC"
+     color: "#ffffff"
        Rectangle{
         width: parent.width
         height: 2
@@ -63,12 +63,7 @@ Page{
         width: parent.width
         height: 120
         anchors.horizontalCenter: parent.horizontalCenter
-        IconButton{
-        icon.source:Qt.resolvedUrl("unknown.png")
 
-        anchors.left: parent.left
-        anchors.leftMargin: 20
-        }
 
 
         Label{
@@ -131,13 +126,10 @@ Page{
         onClicked: pageStack.pop()
 
         }
-        Image {
-            source:Qt.resolvedUrl("unknown.png")
+
 
         }
-
-        }//Конец Column
-    }//Конец Rectangle (Drawer)
+    }
 
 
     MouseArea{
@@ -197,15 +189,8 @@ Page{
     ListModel {
           id: chatsDataModel
 
-
-
-          ListElement {
-              text: "User1"
-          }
-          ListElement {
-              text: "User2"
-
-          }
+          ListElement { name: "User1"; imageURL:"../../icons/unknown.png"; lastMSG: "Привет"; path: "PageOfChatUsers.qml"}
+          ListElement {name: "User2"; imageURL:"../../icons/unknown.png"; lastMSG: "Сообщение 2"; path:""}
 
 
       }
@@ -215,7 +200,7 @@ Page{
 
 
       ListView {
-          id: view
+          id: contactView
 
           anchors.margins: 10
           height: window.height - chatsHeader.height
@@ -225,41 +210,74 @@ Page{
           model: chatsDataModel
           clip: true
 
-          highlight: Rectangle {
-              color: "skyblue"
-          }
-          highlightFollowsCurrentItem: true
+
 
           delegate: Item{
               id: delegateOfListViewChats
-
-              property var view: ListView.view
-              property var isCurrent: ListView.isCurrentItem
-
-              width: view.width
+              width: contactView.width
               height: 100
               Rectangle {
+                  color: "#ffffff"
+
                   anchors.margins: 5
                   anchors.fill: parent
-                  width: parent.width
+
+                      Rectangle{
+                          id: imageContact
+                          anchors.top: parent.top; anchors.left: parent.left; anchors.bottom: parent.bottom
+                          anchors.margins: 5
+                          height: parent.height*0.9
+                          width: height
+                          radius: width/2
+                          color: "#DCDCDC"
+                  Image{
+
+                    anchors.top: parent.top; anchors.left: parent.left; anchors.bottom: parent.bottom
+                    anchors.margins: 5
+                    height: parent.height*0.9
+                    width: height
+                    source: Qt.resolvedUrl(contactData.imageURL)
+                    fillMode: Image.PreserveAspectCrop
 
 
-                  color: "#ffffff"
-                  border {
+                      }
+                             }
+
+                  Text {
+                      id: userName
+                      anchors.left: imageContact.right
+                      anchors.leftMargin: 10
+                      text: model.name
                       color: "#000000"
-                      width: 1
+                      font.pointSize: 24
+                      verticalAlignment: Qt.AlignTop
                   }
 
                   Text {
-                      anchors.centerIn: parent
-                      text: "%1%2".arg(model.text).arg(isCurrent ? " *" : "")
+                      id:lastMessageText
+                      anchors.top:  userName.bottom
+                      anchors.left: imageContact.right; anchors.leftMargin: 10
+                      verticalAlignment: Qt.AlignBottom
+                      font.pointSize: 24
+                      text: model.lastMSG
+                      color: "#888888"
+
                   }
 
-                  MouseArea {
-                      anchors.fill: parent
-                      onClicked:{ view.currentIndex = model.index
-                      pageStack.push(Qt.resolvedUrl("PageOfChatUsers.qml"))
+                  Text {
+                    anchors.right: parent.right
+                    text: pageStack.depth?"\uFE19":"\uFE19"
+                    font.pointSize: 46
+                    color: "#000000"
+                  }
 
+
+                  MouseArea {
+                      id:goToChatPg
+                      anchors.fill: parent
+                      onClicked:{
+                          console.log("Clicked")
+                          pageStack.push(Qt.resolvedUrl(model.path))
                       }
 
 
