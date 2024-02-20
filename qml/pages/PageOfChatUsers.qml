@@ -50,7 +50,7 @@ property alias chat: chatHistory
   ListView {
       id: openedChatView
       clip: true
-      spacing: 8
+      spacing: 50
       anchors.margins: 16
       height: window.height - pageOfChatHeader.height -backgrOfText.height-70
       width: window.width
@@ -75,20 +75,19 @@ property alias chat: chatHistory
                 width: Math.min(messageText.implicitWidth + 24, (openedChatView.width * 0.8))
                 radius: 32
 
-
                 color: sender? color="#ffffff" : color ="#0f2049"
 
 
                 Text {
                     id: messageText
                     text: message
-                    anchors.centerIn: parent
-                    wrapMode: Label.Wrap
+                    anchors.fill: parent
+                    anchors.margins: 12
+                    wrapMode: Text.Wrap
                     font.pointSize: 26
                     color: sender? color="#000000":color="#ffffff"
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: sender? Qt.AlignLeft: Qt.AlignRight
-
                 }
 
                 Text {
@@ -112,8 +111,8 @@ property alias chat: chatHistory
 
   ListModel{
       id:chatHistory
-     ListElement{sender: false; message: "dsfgsdfgsdfgre2"; time:"11:15"}
-     ListElement{sender: true; message: "dsafeawqgew"; time: "11:20"}
+     ListElement{sender: false; message: "Сообщение 1"; time:"11:15"}
+     ListElement{sender: true; message: "Сообщение 2"; time: "11:20"}
 
 
   }
@@ -203,8 +202,11 @@ function sendMSG(){
         "message": youreTextInput.text,
         "time": hours + ":" + minutes
                            });
+    youreTextInput.text = "";
 
 }
+
+
 
 
 }
