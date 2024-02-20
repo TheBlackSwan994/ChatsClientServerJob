@@ -11,9 +11,11 @@ SOURCES += \
 HEADERS += \
 
 DISTFILES += \
+    icons/Icons8-Ios7-Files-Png.48.png \
+    icons/unknown.png \
     qml/pages/AddContactPage.qml \
     qml/pages/PageOfChatUsers.qml \
-    rpm/ru.auroraos.ChatsClientServerJob.spec \
+    rpm/ru.auroraos.ChatsClientServerJob.spec
 
 AURORAAPP_ICONS = 86x86 108x108 128x128 172x172
 

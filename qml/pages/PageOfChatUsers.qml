@@ -25,6 +25,7 @@ Rectangle{
     }
 }
 
+
 MouseArea{
     id:menuBut
 anchors.left: parent.left
@@ -32,12 +33,44 @@ width: 120
 height:parent.height
 Text {
     anchors.centerIn: parent
-    font.pointSize: 35
+    font.pointSize: 36
     color: "#000000"
     text:pageStack.depth? "\u2190":"\u2190"
      }
 onClicked: pageStack.pop()
+}
 
+Rectangle{
+    id: userIcon
+    height: parent.height*0.9
+    width: height
+    radius: width/2
+    color: "#DCDCDC"
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: menuBut.right; anchors.leftMargin: 20
+}
+
+Text {
+    id: name
+    text: "User1"
+    font.pointSize: 24
+    anchors.left: userIcon.right; anchors.leftMargin: 20
+    anchors.verticalCenter: parent.verticalCenter
+}
+
+Rectangle{
+    height: parent.height
+    width: 60
+    anchors.right: parent.right; anchors.rightMargin: 15
+    color: "#ffffff"
+    anchors.verticalCenter: parent.verticalCenter
+    MouseArea{anchors.fill: parent}
+    Text {
+         anchors.centerIn: parent
+         text: pageStack.depth?"\u2706":"\u2706"
+         color: "#000000"
+         font.pointSize: 36
+    }
 }
 
 }
@@ -130,7 +163,7 @@ Rectangle{
     anchors.horizontalCenter: parent.horizontalCenter
     height: 90
     radius: 28
-    color: "#ffffff"
+    color: "#f4f3f7"
     clip: true
 
 TextArea{

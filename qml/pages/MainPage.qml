@@ -276,7 +276,6 @@ Page{
                       id:goToChatPg
                       anchors.fill: parent
                       onClicked:{
-                          console.log("Clicked")
                           pageStack.push(Qt.resolvedUrl(model.path))
                       }
 
